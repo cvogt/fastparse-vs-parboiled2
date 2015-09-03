@@ -3,7 +3,7 @@ import fastparse.all._
 
 object TimeExpressionParserTest extends App {
 
-  println( parseTimeExpression("Mar 2nd") )
+  println( parseTimeExpression("Mar 2ndasasda") )
   println( parseTimeExpression("Jan\n1st") )
 
   println( parseTimeExpression("some bullshit") )
@@ -19,7 +19,7 @@ case class Date(monthOfYear: Month, dayOfMonth: Int)
 
 object TimeExpressionParser extends{
   // careful, always use `lazy` vals here. Otherwise null pointer exception. General Scala problem.
-  lazy val Grammar = P( TimeExpression )
+  lazy val Grammar = P( TimeExpression ~ End )
 
   lazy val TimeExpression = P( ( MonthOfYear ~ separator ~ DayOfMonth ).map( (Date.apply _).tupled ) )
 
