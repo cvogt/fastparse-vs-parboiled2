@@ -3,10 +3,11 @@ import fastparse.all._
 
 object TimeExpressionParserTest extends App {
 
-  println( parseTimeExpression("Mar 2ndasasda") )
+  println( parseTimeExpression("Mar 2nd") )
   println( parseTimeExpression("Jan\n1st") )
 
   println( parseTimeExpression("some bullshit") )
+  println( parseTimeExpression("Mar 2ndcrap") )
 
 }
 
