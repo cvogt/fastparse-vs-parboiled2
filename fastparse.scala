@@ -20,22 +20,22 @@ case class Date(monthOfYear: Month, dayOfMonth: Int)
 
 object TimeExpressionParser extends{
   // careful, always use `lazy` vals here. Otherwise null pointer exception. General Scala problem.
-  lazy val Grammar = P( TimeExpression ~ End )
+  lazy val Grammar = Start ~ TimeExpression ~ End
 
-  lazy val TimeExpression = P( ( MonthOfYear ~ separator ~ DayOfMonth ).map( (Date.apply _).tupled ) )
+  lazy val TimeExpression = ( MonthOfYear ~ separator ~ DayOfMonth ).map( (Date.apply _).tupled )
 
-  lazy val separator = P( "\t" | " " | "\r" | "\n" | "\u000C" )
+  lazy val separator = "\t" | " " | "\r" | "\n" | "\u000C"
 
-  lazy val DayOfMonth = P( ("1st" | "2nd").!.map{
+  lazy val DayOfMonth = ("1st" | "2nd").!.map{
     case "1st" => 1
     case "2nd" => 2
-  } )
+  }
 
-  lazy val MonthOfYear = P( ("Jan" | "Feb" | "Mar").!.map{
+  lazy val MonthOfYear = ("Jan" | "Feb" | "Mar").!.map{
     case "Jan" => January
     case "Feb" => February
     case "Mar" => March
-  } )
+  }
 }
 
 object parseTimeExpression{
